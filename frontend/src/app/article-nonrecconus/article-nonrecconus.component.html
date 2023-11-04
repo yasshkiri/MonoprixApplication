@@ -1,0 +1,168 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card px-6 py-6">
+            <p-toast></p-toast>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="right">
+                    <div class="my-2">
+                        <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger" (click)="deleteselectedarticles()" [disabled]="!selectedarticle || !selectedarticle.length"></button>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="Export" icon="pi pi-upload" class="p-button-help" (click)="dt.exportCSV()"></button>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table #dt [value]="articlesnonreconnus" [columns]="cols" responsiveLayout="scroll" [rows]="7" [globalFilterFields]="['design_artM','country.name','representative.name','status']" [rows]="7" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedarticle" selectionMode="multiple" [rowHover]="true" dataKey="id">
+                <ng-template pTemplate="caption">
+                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+                        <h5 class="m-0">Liste des articles Non Reconnus </h5>
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Recherche..."  class="w-full sm:w-auto"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="codebarre_artM">Code<p-sortIcon field="id"></p-sortIcon></th>
+                        <th pSortableColumn="design_artM">Designation <p-sortIcon field="design_artM"></p-sortIcon></th>
+                        <th pSortableColumn="date_releve">Date Relevé <p-sortIcon field="date_releve"></p-sortIcon></th>
+                        <th pSortableColumn="prixActuel">Prix Actuel<p-sortIcon field="prixActuel"></p-sortIcon></th>
+                        <th pSortableColumn="dernierprix">Dernier Prix <p-sortIcon field="dernierprix"></p-sortIcon></th>
+                        <th pSortableColumn="prixpromoActuel">Prix Promo Actuel <p-sortIcon field="prixpromoActuel"></p-sortIcon></th>
+                        <th pSortableColumn="dernier_prixpromo">Dernier Prix Promo <p-sortIcon field="dernier_prixpromo"></p-sortIcon></th>
+                        <th pSortableColumn="TypeScan">Type Scan <p-sortIcon field="TypeScan"></p-sortIcon></th>
+                        <th pSortableColumn="traite">Traite <p-sortIcon field="traitre"></p-sortIcon></th>
+                        <th pSortableColumn="planifie">Planifie <p-sortIcon field="planifie"></p-sortIcon></th>
+                        <th pSortableColumn="reconnue">reconnue <p-sortIcon field="reconnue"></p-sortIcon></th>
+                        <th pSortableColumn="gamme_artM">Gamme <p-sortIcon field="gamme_artM"></p-sortIcon></th>
+                        <th pSortableColumn="marque_artM">Marque <p-sortIcon field="marque_artM"></p-sortIcon></th>
+                        <th pSortableColumn="famille_artM">Famille <p-sortIcon field="famille_artM"></p-sortIcon></th>
+                        <th pSortableColumn="poids">Poids <p-sortIcon field="poids"></p-sortIcon></th>
+                        <th pSortableColumn="volume">Volume <p-sortIcon field="volume"></p-sortIcon></th>
+                        <th pSortableColumn="fournisseur">Fournisseur <p-sortIcon field="fournisseur"></p-sortIcon></th>
+                        <th pSortableColumn="enstock_artM">En Stock ? <p-sortIcon field="enstock_artM"></p-sortIcon></th>
+
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-articlesnonreconnus>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="articlesnonreconnus"></p-tableCheckbox>
+                        </td>
+                        <td style="width:14%; min-width:10rem;">
+                            <span class="p-column-title">Code</span>
+                            {{articlesnonreconnus.codebarre_artM}}
+                        </td>
+                        <td style="width:14%; min-width:8rem;">
+                            <span class="p-column-title">Designation</span>
+                            {{articlesnonreconnus.design_artM}}
+                        </td>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">date releve</span>
+                              {{ articlesnonreconnus.date_releve}}
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Prix Actuel </span>
+                           {{articlesnonreconnus.prixActuel}}
+                        </td>
+                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Dernier Prix </span>
+                            {{articlesnonreconnus.dernier_prix}}
+                         </td>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Prix Promo Actuel </span>
+                            {{articlesnonreconnus.prixpromoActuel}}
+                         </td>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Dernier Prix Promo </span>
+                            {{articlesnonreconnus.dernier_prixpromo}}
+                         </td>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Type Scan </span>
+                            {{articlesnonreconnus.typeScan}}
+                         </td>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Traite </span>
+                            {{articlesnonreconnus.traite}}
+                         </td>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">planifie </span>
+                            {{articlesnonreconnus.planifie}}
+                         </td>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">reconnue </span>
+                            {{articlesnonreconnus.reconnue}}
+                         </td>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Gamme </span>
+                            {{articlesnonreconnus.gamme_artM}}
+                         </td>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Marque </span>
+                            {{articlesnonreconnus.marque_artM}}
+                         </td>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Famille </span>
+                            {{articlesnonreconnus.famille_artM}}
+                         </td>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Poids </span>
+                            {{articlesnonreconnus.poids}}
+                         </td>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Volume </span>
+                            {{articlesnonreconnus.volume}}
+                         </td>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Fournisseur </span>
+                            {{articlesnonreconnus.fournisseur}}
+                         </td>
+                         <td style="width:14%; min-width: 10rem;"><span class="p-column-title">En Stock ? </span>
+                            {{articlesnonreconnus.enstock_artM}}
+                         </td>
+                        <td>
+                            <div class="flex">
+                                <button pButton pRipple icon="pi pi-pencil" (click)="openedit()" class="p-button-rounded p-button-success mr-2" ></button>
+                                <button pButton pRipple icon="pi pi-trash" (click)="deletearticenon()" class="p-button-rounded p-button-warning"  ></button>
+                                
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <p-dialog [(visible)]="articleEditDialog" [style]="{width: '550px' , height: '80%'}" [draggable]="false"  header="Edit User" [modal]="true" class="p-fluid">
+            <ng-template pTemplate="content">
+                <form [formGroup]="editForm" >
+                  <div class="form-group">
+                    <label for="nomuser">Nom User</label>
+                    <input type="text" pInputText formControlName="nomuser" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['nomuser'].errors }" />
+                    <div *ngIf="submitted && f['nomuser'].errors" class="invalid-feedback">
+                      <div *ngIf="f['nomuser'].errors['required']">Nom User is required.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" pInputText formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+                    <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                      <div *ngIf="f['email'].errors['required']">Email is required.</div>
+                      <div *ngIf="f['email'].errors">Email must be a valid email address.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="text" pInputText formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+                    <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                      <div *ngIf="f['password'].errors['required']">Password is required.</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="id_role">Id Role</label>
+                    <input type="text" pInputText formControlName="id_role" [ngClass]="{ 'is-invalid': submitted && f['id_role'].errors }" />
+                 </div>
+                <div class="field">
+                 <label for="actif">Actif</label>
+                  <p-dropdown id="actif" name="actif" formControlName="actif"  optionValue=value [options]="[{label: 'Yes', value: true}, {label: 'No', value: false}]"  ></p-dropdown>
+                 </div>
+                 </form>          
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+              <button type="submit" pButton pRipple label="Save" icon="pi pi-check" (click)="edituser()" class="p-button-text"  > </button>
+            </ng-template>
+          </p-dialog>
+</div>
+</div>        

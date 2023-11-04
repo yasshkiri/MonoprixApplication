@@ -1,0 +1,13 @@
+
+
+  .password-value {
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
+  
+  .password-button {
+    font-size: 1rem;
+    padding: 0.25rem;
+    margin: 0;
+    line-height: 1;
+  }

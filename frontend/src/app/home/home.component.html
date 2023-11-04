@@ -1,0 +1,73 @@
+<section id="content">
+    <main>
+ <ul class="box-info">
+    <li>
+      <i class='bx bxs-calendar-check' ></i>
+      <span class="text">
+        <h3>{{nbMission}}</h3>
+        <p>Missions</p>
+      </span>
+    </li>
+    <li>
+      <i class='bx bxs-group' ></i>
+      <span class="text">
+        <h3>{{nbUser}}</h3>
+        <p>Utilisateurs</p>
+      </span>
+    </li>
+    <li>
+      <i class='bx bxs-shopping-bag-alt' ></i>
+      <span class="text">
+        <h3>{{nbnewart}}</h3>
+        <p>Nouveaux articles</p>
+      </span>
+    </li>
+  </ul>
+  <div class="table-data">
+    <div class="order">
+      <div class="head">
+        <h3>Missions Récentes</h3>
+        <i class='bx bx-search' ></i>
+        <i class='bx bx-filter' ></i>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Mission</th>
+            <th>Date Mission</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of [0, 1, 2, 3, 4]">
+            <div *ngIf="listMiss?.length > i " >
+            <td>{{listMiss[i].nom_miss}}</td>
+            <td>{{listMiss[i].date_miss}}</td>
+            <td><span pButton pRipple class="p-button-rounded p-button-warning" role="button" aria-disabled="true" style="font-size: 14px; width: 100px; display: flex; align-items: center;">{{listMiss[i].etat}}</span></td>
+            </div>
+          </tr>
+          <tr>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="todo">
+      <div class="head">
+        <h3>Nouveaux Articles</h3>
+        <i class='bx bx-filter' ></i>
+      </div>
+      <ul class="todo-list">
+        <li class="completed">
+          <div *ngFor="let i of [0,1,2,3,4,5]">
+            <div *ngIf="listnewart?.length > i " >
+          <p>{{listnewart[i].design_artM}} </p>
+        </div>
+        </div>
+          <i class='bx bx-dots-vertical-rounded' ></i>
+        
+        </li>
+      </ul>
+    </div>
+  </div>
+ </main>
+ </section>

@@ -1,0 +1,148 @@
+
+ <!-- SIDEBAR START-->
+ <section id="sidebar" [ngClass]="status ? 'hide' : ''" >
+  <div class="brand">
+    <img src ="/assets/monoprix_logo1.png" class='bx'   />
+    <ul *ngIf="!status">
+      <img src ="/assets/monoprix_logo2.png" class='bx2'  />
+    </ul>
+  </div> 
+  <div class="side-menu">
+    <ul class="top" >
+      <li class="active">
+        <a (click)="showcomponent('Dashboard')" (click)="status=false" >
+          <i class='bx bxs-dashboard' style="background-image: linear-gradient( red, rgb(246, 191, 191)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" ></i>
+          <span class="text">Dashboard</span>
+        </a>
+      </li>
+        
+      <li class="nav-item dropdown" *ngFor="let category of categories"  >     
+        <div class="category" (click)="toggleCategory(category)" (click)="status=false">
+            <a>
+              <i class='{{category.class}}' style="background-image: linear-gradient( red, rgb(246, 191, 191)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>          
+              {{ category.name }}
+            </a>
+          <i *ngIf="!status && !category.expanded" class="bx bxs-chevron-down arrow" > </i>
+          <i *ngIf="!status && category.expanded" class="bx bxs-chevron-up arrow" > </i>
+          <span style="padding-bottom: 50px;" [ngClass]="{'fa-chevron-down': category.expanded, 'fa-chevron-right': !category.expanded}"></span>
+        </div>
+  
+        <ul *ngIf="category.expanded">
+          <li class="subcategory" *ngFor="let subcategory of category.subcategories" style="padding-top: 15px; padding-left: 50px;">
+              <div  (click)="showcomponent(subcategory.name); updateCurrentCategory(category.name)" > {{ subcategory.name }} </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  
+    <ul class="bottom" >
+      <li>
+        <a (click)="showcomponent('Paramètres')" (click)="status=false">
+          <i class='bx bxs-cog' style="background-image: linear-gradient( red, rgb(246, 191, 191)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+          <span class="text">Paramètres</span>
+        </a>
+      </li>
+      <li>
+        <a  class="logout" (click)="logout()" (click)="status=false">
+          <i class='bx bxs-log-out-circle' style="background-image: linear-gradient( red, rgb(246, 191, 191)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+          <span class="text">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+</section>
+<!-- SIDEBAR END-->
+
+<!-- NAVBAR START--> 
+<section id="navbar">
+  <nav>
+    <i (click)="addToggle()" class='bx bx-menu' ></i>
+    <form action="#">
+      <div class="form-input">
+        <input type="search" matInput placeholder="Search..." name= "search" style="background-color: rgb(237, 237, 237);">
+        <button matSuffix mat-button><mat-icon style="color: grey;">search</mat-icon></button>
+      </div>
+    </form>
+    <a href="#" class="notification">
+      <i class='bx bxs-bell' ></i>
+      <span class="num">8</span>
+    </a>
+    <li>
+      <a  class="profile" (click)="showcomponent('Paramètres')" style="cursor:pointer">
+        <img src="https://secure.gravatar.com/avatar/d09eaad01aea86c51b4f892b4f8abf6f?s=100&d=wavatar&r=g">
+      </a>
+    </li>
+
+    
+  </nav>
+
+</section>
+<!-- NAVBAR END -->
+
+<!-- CONTENT START--> 
+<section id="content">
+  <!-- MAIN CONTENT START-->
+  <main>
+    <div class="head-title">
+      <div class="left">
+        <h1 class="active" (click)="showcomponent(current_component)">{{current_component}}</h1>
+        <ul *ngIf="!(['Paramètres', 'Logout', 'Dashboard'].includes(current_component))" class="breadcrumb">
+          <li>
+            <div (click)="showcomponent('Dashboard')">{{current_category}}</div>
+          </li>
+          <li><i class='bx bx-chevron-right' ></i>
+          </li>
+          <li>
+            <a>{{current_component}}</a>
+          </li>
+        </ul>
+      </div>
+     <!-- <a href="#" class="btn-download">
+        <i class='bx bxs-cloud-download' ></i>
+        <span class="text">Download PDF</span>
+      </a>-->
+    </div>
+    <div  *ngIf="current_component=='Home'" >
+      <app-home> </app-home>
+</div>
+   <div  *ngIf="current_component=='Dashboard'" >
+         <app-home> </app-home>
+   </div>
+   <div  *ngIf="current_component=='Utilisateurs' " >
+    <app-add> </app-add>
+   </div>
+      <div *ngIf="current_component=='Rôles' " >
+    <app-role></app-role>
+    </div>
+    <div *ngIf="current_component=='Zones'">
+      <app-zones></app-zones>
+    </div>
+    <div *ngIf="current_component=='Enseignes'" >
+      <app-enseigne></app-enseigne>
+    </div>
+    <div *ngIf="current_component=='sites'" >
+      <app-sites></app-sites>
+    </div>
+    <div *ngIf="current_component=='Articles Existants'">
+      <app-article-exist></app-article-exist>
+    </div>
+    <div *ngIf="current_component=='Non Reconnus'">
+    <app-article-nonrecconus></app-article-nonrecconus>
+    </div>
+    <div *ngIf="current_component=='Relevé par liste'">
+      <app-prix [data]="current_component"></app-prix>
+    </div>
+    <div *ngIf="current_component=='Relevé par gamme'">
+      <app-gamme [data]="current_component"></app-gamme>
+    </div>
+    <div *ngIf="current_component=='Paramètres'">
+      <app-parametre ></app-parametre>
+    </div>
+
+  </main>
+  <!-- MAIN CONTENT END-->
+</section>
+<!-- CONTENT END -->
+
+
