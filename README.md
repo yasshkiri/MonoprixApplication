@@ -1,2 +1,2 @@
 ﻿# MonoprixApplication
- A web application for supermarket MONOPRIX
+ An application for supermarket MONOPRIX
